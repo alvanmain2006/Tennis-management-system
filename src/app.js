@@ -10,4 +10,8 @@ app.get("/", (req, res) => {
   res.send("Tennis Tournament Management API is running...");
 });
 
+app.get("/home", (req, res) => {
+  res.send(`<p1>Home</p1>`)
+})
+
 module.exports = app;
