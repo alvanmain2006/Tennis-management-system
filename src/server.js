@@ -1,6 +1,7 @@
 require("dotenv").config();
 const pool = require("../config/db")
 const app = require("./app");
+const playerService = require("./service/playerService")
 
 const PORT = process.env.PORT || 5000;
 
@@ -8,9 +9,11 @@ const PORT = process.env.PORT || 5000;
 
 async function startServer() {
     try {
-        const result = await pool.query("SELECT NOW();")
-        console.log(result.rows);
-        console.log("DB is connected to Postgrest")
+        await pool.query("SELECT NOW();")
+        console.log("DB is connected to PostgreSQL");
+
+        const players = await playerService.getAllPlayers()
+        console.log("Players:", players);
 
         app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
