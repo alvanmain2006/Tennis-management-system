@@ -6,6 +6,23 @@ class PlayerService {
         return players;
     }
     
+    // Get player with id 
+    async getPlayerByID(id) {
+        const player = await playerRepository.getPlayersByID(id)
+        if (!player) {
+            return null
+        }
+        return player
+    }
+
+    //Create Player with user_id
+    async createPlayer(user_id) {
+        const player = await playerRepository.createPlayer(user_id)
+
+        return player
+    }
+
+
 }
 
 module.exports = new PlayerService()

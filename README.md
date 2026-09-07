@@ -89,7 +89,7 @@ Architecture Layers
     Provides a responsive interface for players, organizers, and administrators
     Sends HTTP requests to the backend using Axios
 Backend
-    Built with Spring Boot
+    Built with Express.js
     Implements REST APIs
     Handles authentication, authorization, tournament logic, scheduling, and score management
 Database

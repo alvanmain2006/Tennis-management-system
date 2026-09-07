@@ -1,9 +1,11 @@
 const express = require("express") //importing express
+const playerRoutes = require("./routes/playerRoute")
 
 const app = express() //using the express function
 
 // Middleware
 app.use(express.json()); //parse json file
+app.use("/players", playerRoutes)
 
 // Temporary route
 app.get("/", (req, res) => {

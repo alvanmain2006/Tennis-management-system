@@ -1,7 +1,7 @@
-POST http://localhost:3000/
+POST http://localhost:3000/players
 Content-Type: application/json
 
 {
-    "name":"Tri",
-    "location":"Seattle"
+    "user_id": 3
 }
+
