@@ -17,6 +17,9 @@ class PlayerService {
 
     //Create Player with user_id
     async createPlayer(user_id) {
+        if (!user_id) {
+            throw new Error("USER_ID_REQUIRED");
+        }
         const player = await playerRepository.createPlayer(user_id)
 
         return player

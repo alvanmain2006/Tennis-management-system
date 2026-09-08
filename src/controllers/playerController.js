@@ -49,6 +49,13 @@ class playerController {
             res.status(201).json(player)
         } catch (error) {
             console.log(error)
+
+            if (error.message === "USER_ID_REQUIRED") {
+                res.status(400).json({
+                    message: "user_id is required"
+                })
+            }
+
             res.status(500).json({
                 message: "failed to create a player"
             })
