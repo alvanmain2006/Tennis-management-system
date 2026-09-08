@@ -30,6 +30,16 @@ class PlayerRepository {
 
         return result.rows[0]
     }
+
+    // get player with the user_id not player id
+    async getPlayerByUserId(userId) {
+        const result = await pool.query(
+            "SELECT * FROM players WHERE user_id = $1;",
+            [userId]
+        );
+
+        return result.rows[0];
+    }
 }
 
 module.exports = new PlayerRepository();

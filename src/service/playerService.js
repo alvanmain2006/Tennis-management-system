@@ -28,6 +28,12 @@ class PlayerService {
             throw new Error("USER_NOT_FOUND")
         }
 
+        const existingPlayer = await playerRepository.getPlayerByUserId(user_id)
+
+        if (existingPlayer) {
+            throw new Error("PLAYER_ALREADY_EXISTS");
+        }
+
         const player = await playerRepository.createPlayer(user_id)
 
         return player

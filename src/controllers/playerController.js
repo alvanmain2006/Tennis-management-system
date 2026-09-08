@@ -48,24 +48,28 @@ class playerController {
 
             res.status(201).json(player)
         } catch (error) {
-            console.error("CREATE PLAYER ERROR:", error);
-            console.error("ERROR MESSAGE:", error.message);
+            console.error(error);
 
             if (error.message === "USER_ID_REQUIRED") {
                 return res.status(400).json({
                     message: "user_id is required"
                 });
-            }
 
-            if (error.message === "USER_NOT_FOUND") {
+            } else if (error.message === "USER_NOT_FOUND") {
                 return res.status(404).json({
                     message: "User not found"
                 });
-            }
 
-            return res.status(500).json({
-                message: "Failed to create player"
-            });
+            } else if (error.message === "PLAYER_ALREADY_EXISTS") {
+                return res.status(409).json({
+                    message: "Player profile already exists for this user"
+                });
+
+            } else {
+                return res.status(500).json({
+                    message: "Failed to create player"
+                });
+            }
         }
     }
 }
