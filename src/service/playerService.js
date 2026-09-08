@@ -1,4 +1,5 @@
 const playerRepository = require("../repositories/playerRepositories");
+const userRepository = require("../repositories/userRepository")
 class PlayerService {
     async getAllPlayers () {
         const players = await playerRepository.getAllPlayers();
@@ -20,6 +21,13 @@ class PlayerService {
         if (!user_id) {
             throw new Error("USER_ID_REQUIRED");
         }
+
+        const user = await userRepository.getUserByID(user_id)
+
+        if (!user) {
+            throw new Error("USER_NOT_FOUND")
+        }
+
         const player = await playerRepository.createPlayer(user_id)
 
         return player
