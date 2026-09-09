@@ -72,6 +72,39 @@ class playerController {
             }
         }
     }
+
+    // Update by id for rating
+    async updatePlayerRating(req, res) {
+        try {
+            const id = req.params.id
+            const {rating} = req.body
+
+            const updatedPlayer = await playerService.updatePlayerRating(id, rating)
+
+            res.status(200).json({
+                updatedPlayer
+            })
+
+        } catch (error) {
+            console.log(error)
+
+            if (error.message === "RATING_REQUIRED") {
+                return res.status(400).json({
+                    message: "rating is required"
+                })
+            }
+
+            if (error.message === "PLAYER_NOT_FOUND") {
+                return res.status(404).json({
+                    message: `player is not found`
+                })
+            }
+
+            return res.status(500).json({
+                message: "Failed to update player"
+            })
+        }
+    }
 }
 
 module.exports = new playerController ()

@@ -15,4 +15,7 @@ router.post("/", (req, res) => {
     playerController.createPlayer(req, res)
 })
 
+router.patch("/:id", (req, res) => {
+    playerController.updatePlayerRating(req, res)
+})
 module.exports = router;

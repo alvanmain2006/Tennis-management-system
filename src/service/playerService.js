@@ -8,37 +8,57 @@ class PlayerService {
     }
     
     // Get player with id 
-    async getPlayerByID(id) {
-        const player = await playerRepository.getPlayersByID(id)
+    async getPlayerByID(userID) {
+        const player = await playerRepository.getPlayersByID(userID)
         if (!player) {
             return null
         }
         return player
     }
 
-    //Create Player with user_id
-    async createPlayer(user_id) {
-        if (!user_id) {
-            throw new Error("USER_ID_REQUIRED");
+    //Create Player with id
+    async createPlayer(id) {
+        if (!id) {
+            throw new Error("id_REQUIRED");
         }
 
-        const user = await userRepository.getUserByID(user_id)
+        const user = await userRepository.getUserByID(id)
 
         if (!user) {
             throw new Error("USER_NOT_FOUND")
         }
 
-        const existingPlayer = await playerRepository.getPlayerByUserId(user_id)
+        const existingPlayer = await playerRepository.getPlayerByID(id)
 
         if (existingPlayer) {
             throw new Error("PLAYER_ALREADY_EXISTS");
         }
 
-        const player = await playerRepository.createPlayer(user_id)
+        const player = await playerRepository.createPlayer(id)
 
         return player
     }
 
+
+    //update rating with id
+    async updatePlayerRating(id, rating) {
+        console.log("ID RECEIVED:", id);
+        if (rating === undefined) {
+            throw new Error("RATING_REQUIRED");
+        }
+
+        const player = await playerRepository.getPlayerByID(id);
+
+        console.log("PLAYER FOUND:", player);
+
+        if (!player) {
+            throw new Error("PLAYER_NOT_FOUND");
+        }
+
+        const updatedPlayer = await playerRepository.updatePlayerRating(id, rating);
+
+        return updatedPlayer;
+    }
 
 }
 
