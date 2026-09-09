@@ -105,6 +105,32 @@ class playerController {
             })
         }
     }
+
+    //delete player
+    async deletePlayer(req, res) {
+        const id = req.params.id
+
+        try {
+            const deletedPlayer = await playerService.deletePlayer(id)
+
+            return res.status(200).json({
+                deletedPlayer
+            })
+
+        } catch (error) {
+            console.log(error)
+
+            if (error.message === "PLAYER_NOT_FOUND") {
+                return res.status(404).json({
+                    message: "Player not found"
+                })
+            }
+
+            return res.status(500).json({
+                message: "failed to delete player"
+            })
+        }
+    }
 }
 
 module.exports = new playerController ()

@@ -1,7 +1,13 @@
 
-PATCH http://localhost:3000/players/4
+POST http://localhost:3000/players
 Content-Type: application/json
 
 {
-    "rating": 4.5
+    "user_id": 3
 }
+
+###
+DELETE http://localhost:3000/players/5
+
+###
+GET http://localhost:3000/players

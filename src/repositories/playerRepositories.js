@@ -20,12 +20,12 @@ class PlayerRepository {
     }
 
     // Create player
-    async createPlayer(id) {
+    async createPlayer(userId) {
         const result = await pool.query(
             `INSERT INTO players (user_id)
             VALUES ($1)
             RETURNING *;`,
-            [id]
+            [userId]
         )
 
         return result.rows[0]
@@ -49,6 +49,17 @@ class PlayerRepository {
             WHERE id = $2
             RETURNING *;`,
             [rating, id]
+        )
+        return result.rows[0]
+    }
+
+    // Delete player with id 
+    async deletePlayer(id) {
+        const result = await pool.query(
+            `DELETE FROM players
+            WHERE id = $1
+            RETURNING *;`,
+            [id]
         )
         return result.rows[0]
     }

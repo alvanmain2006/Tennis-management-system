@@ -9,7 +9,7 @@ class PlayerService {
     
     // Get player with id 
     async getPlayerByID(userID) {
-        const player = await playerRepository.getPlayersByID(userID)
+        const player = await playerRepository.getPlayerByID(userID)
         if (!player) {
             return null
         }
@@ -28,7 +28,7 @@ class PlayerService {
             throw new Error("USER_NOT_FOUND")
         }
 
-        const existingPlayer = await playerRepository.getPlayerByID(id)
+        const existingPlayer = await playerRepository.getPlayerByUserID(id)
 
         if (existingPlayer) {
             throw new Error("PLAYER_ALREADY_EXISTS");
@@ -42,14 +42,12 @@ class PlayerService {
 
     //update rating with id
     async updatePlayerRating(id, rating) {
-        console.log("ID RECEIVED:", id);
         if (rating === undefined) {
             throw new Error("RATING_REQUIRED");
         }
 
         const player = await playerRepository.getPlayerByID(id);
 
-        console.log("PLAYER FOUND:", player);
 
         if (!player) {
             throw new Error("PLAYER_NOT_FOUND");
@@ -60,6 +58,17 @@ class PlayerService {
         return updatedPlayer;
     }
 
-}
+    //delete player
+    async deletePlayer(id) {
+        const player = await playerRepository.getPlayerByID(id)
+
+        if (!player) {
+            throw new Error("PLAYER_NOT_FOUND")
+        }
+
+        const deletedPlayer = await playerRepository.deletePlayer(id)
+        return deletedPlayer
+    }
+ }
 
 module.exports = new PlayerService()

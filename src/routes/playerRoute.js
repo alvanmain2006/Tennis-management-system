@@ -18,4 +18,10 @@ router.post("/", (req, res) => {
 router.patch("/:id", (req, res) => {
     playerController.updatePlayerRating(req, res)
 })
+
+router.delete("/:id", (req, res) => {
+    playerController.deletePlayer(req, res)
+})
+
+
 module.exports = router;
