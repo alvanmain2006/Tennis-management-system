@@ -11,3 +11,15 @@ DELETE http://localhost:3000/players/5
 
 ###
 GET http://localhost:3000/players
+
+### 
+POST http://localhost:3000/users/register
+Content-Type: application/json
+
+{
+    "name": "test_player_from_endpoint",
+    "username": "carlosAlc",
+    "email": "carlos@gmail.com",
+    "password": "123456789@",
+    "role": "player"
+}

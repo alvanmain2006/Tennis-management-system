@@ -21,12 +21,30 @@ class userRepository {
                 password_hash,
                 role
             )
-            VALUES (1$, 2$, 3$, 4$, 5%)
-            RETURNIN *;`
+            VALUES ($1, $2, $3, $4, $5)
+            RETURNING *;`
             ,[name, username, email, passHash, role]
             
         )
         return result.rows[0]
+    }
+
+    // get user by email to chcek for dup
+    async getUserByEmail (email) {
+        const result = await pool.query(
+            `SELECT * FROM users WHERE email = $1;`,
+            [email]
+        )
+        return result.rows[0];
+    }
+
+    // get user by username to check for dup
+    async getUserByUsername (username) {
+        const result = await pool.query(
+            `SELECT * FROM users WHERE username = $1;`,
+            [username]
+        )
+        return result.rows[0];
     }
 }
 
