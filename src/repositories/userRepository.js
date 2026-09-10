@@ -10,6 +10,24 @@ class userRepository {
 
         return result.rows[0];
     }
+
+    // create user
+    async createUser (name, username, email, passHash, role) {
+        const result = await pool.query(
+            `INSERT INTO users (
+                name,
+                username, 
+                email, 
+                password_hash,
+                role
+            )
+            VALUES (1$, 2$, 3$, 4$, 5%)
+            RETURNIN *;`
+            ,[name, username, email, passHash, role]
+            
+        )
+        return result.rows[0]
+    }
 }
 
 module.exports = new userRepository();
